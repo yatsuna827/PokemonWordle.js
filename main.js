@@ -26,7 +26,7 @@ const checkInput = (input, correctAnswer, pokemons) => {
     if (!pokemons.includes(input))
         return null;
     input = input.padEnd(5, '_');
-    const result = correctAnswer.split('');
+    const result = ['x', 'x', 'x', 'x', 'x'];
     // 位置一致を確認
     for (let i = 0; i < 5; i++) {
         if (input[i] === correctAnswer[i]) {
@@ -34,10 +34,8 @@ const checkInput = (input, correctAnswer, pokemons) => {
         }
     }
     for (let i = 0; i < 5; i++) {
-        if (result[i] === '@')
-            continue;
-        if (result.includes(input[i]))
+        if (result[i] !== '@' && correctAnswer.includes(input[i]))
             result[i] = 'o';
     }
-    return result.map((s) => '@o'.includes(s) ? s : 'x').join('');
+    return result.join('');
 };
