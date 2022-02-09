@@ -14,12 +14,13 @@
           .CodeMirror {
             font-family: Monaco, 'Andale Mono', 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
             font-size: 9pt;
+            height: 70vh;
         }
         </style>
     </head>
     <body>
-        <textarea id='editor'>
-({log, count}) => {
+        <textarea id='editor' stype='height: 300px'>
+({log, count}, {context, pokemonNames}) => {
     // logには[input,result]のタプルの配列が渡されます。
     // result は 'x','o','@'のいずれかからなる長さ5の文字列で、それぞれ
     // x ... 正解に含まれない
@@ -29,13 +30,27 @@
     // 
     // count は 現在の入力の回数が渡されます。
     // 無効な入力はcountが増えません。
+    
+    // contextは1回『実行』ボタンを押してスクリプトが実行される間、保持されます。
+    // 前処理を行って格納しておく用途などに使えます。
+    // 
+    // pokemonNames には、本ゲームに登録されているポケモン名の一覧が渡されます。ご自由にお使いください。
+    // (呼び出しごとに新しい配列が渡されるので、破壊的変更を行っても構いませんが、
+    //  次の呼び出しに引き継ぎたい場合はcontextに格納する必要があります)
+    if(!context.pool) {
+        context.pool = pokemonNames.filter((name) => name.length === 5)
+        context.total = pokemonNames.length
+    }
 
     if(count == 0) return 'ジーランス'
     if(count == 1) return 'ダルマッカ'
     if(count == 2) return 'ギギギアル'
     if(count == 3) return 'アギルダー'
-    return 'ヌオー'
-}
+    
+    const rand = Math.floor(Math.random() * context.total)
+    
+    return context.pool[rand]
+}       
 </textarea>
         <button id='play-button' onclick='onPlayButtonClicked()'>実行</button>
         <div id='logger'></div>
@@ -45,8 +60,8 @@
             });
             const onPlayButtonClicked = () => {
                 editor.save()
-                const rand = Math.floor(Math.random() * 100)
-                //console.log(rand, five[rand])
+                const rand = Math.floor(Math.random() * five.length)
+                
                 main(five[rand], pokemonNames, document.getElementById("editor").value)
             }
 

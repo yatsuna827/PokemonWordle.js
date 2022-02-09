@@ -5,10 +5,11 @@ const main = (answer: string, pokemons: readonly string[], userScript: string) =
     const log: [input: string, result: string][] = []
     let count = 0
     let limit = 100
+    const context = {  }
     while(count < 10 && limit) {
         limit--
 
-        const input = script({log: [...log], count})
+        const input = script({log: [...log], count}, {context, pokemonNames: pokemons.slice()})
         const res = checkInput(input, answer, pokemons)
         if(res === null) continue;
 
