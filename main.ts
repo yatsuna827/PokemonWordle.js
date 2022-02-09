@@ -19,10 +19,7 @@ const main = (answer: string, pokemons: readonly string[], userScript: string) =
         count++
     }
 
-    const logger = document.getElementById('logger') as HTMLDivElement
-    logger.innerHTML = limit ?
-        log.map(([input, result], i) => `<p>${i+1}, input: ${input}, result: ${result}</p>`).join('') + `<p>answer: ${answer}</p>` :
-        "limit over..."
+    return limit ? log : null
 }
 
 const checkInput = (input: any, correctAnswer: string, pokemons: readonly string[]): string | null => {

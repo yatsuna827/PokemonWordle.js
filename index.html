@@ -53,6 +53,7 @@
 }       
 </textarea>
         <button id='play-button' onclick='onPlayButtonClicked()'>実行</button>
+        <button id='play-button2' onclick='onPlayButton2Clicked()'>スコアアタック</button>
         <div id='logger'></div>
         <script>
             const editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
@@ -62,7 +63,38 @@
                 editor.save()
                 const rand = Math.floor(Math.random() * five.length)
                 
-                main(five[rand], pokemonNames, document.getElementById("editor").value)
+                const log = main(five[rand], pokemonNames, document.getElementById("editor").value)
+                
+                const logger = document.getElementById('logger')
+                logger.innerHTML = log ?
+                    log.map(([input, result], i) => `<p>${i+1}, input: ${input}, result: ${result}</p>`).join('') + `<p>answer: ${five[rand]}</p>` :
+                    "limit over..."
+            }
+            const onPlayButton2Clicked = () => {
+                editor.save()
+
+                const results = []
+                let max = -Infinity
+                let min = Infinity
+                let sum = 0
+                const logger = document.getElementById('logger')
+                for(let k=0; k<10; k++) {
+                    let score = 0
+                    for(let i=0; i<100; i++) {
+                        const rand = Math.floor(Math.random() * five.length)
+                        const log = main(five[rand], pokemonNames, document.getElementById("editor").value)
+                        if(log == null) score -= 100
+                        else score += log[log.length-1][1] === '@@@@@' ? 11 - log.length : 0
+                    }
+                    if(score > max) max = score
+                    if(score < min) min = score
+                    sum += score
+                    results.push(`<p>${k+1} score: ${score}</p>`)
+                }
+                results.push(`<p>min: ${min}</p>`)
+                results.push(`<p>max: ${max}</p>`)
+                results.push(`<p>avg: ${sum / 10}</p>`)
+                logger.innerHTML = results.join('')
             }
 
         </script>

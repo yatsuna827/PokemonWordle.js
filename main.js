@@ -17,10 +17,7 @@ const main = (answer, pokemons, userScript) => {
             break;
         count++;
     }
-    const logger = document.getElementById('logger');
-    logger.innerHTML = limit ?
-        log.map(([input, result], i) => `<p>${i + 1}, input: ${input}, result: ${result}</p>`).join('') + `<p>answer: ${answer}</p>` :
-        "limit over...";
+    return limit ? log : null;
 };
 const checkInput = (input, correctAnswer, pokemons) => {
     if (typeof input !== 'string' || !input || input.length > 5)
