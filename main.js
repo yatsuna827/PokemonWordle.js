@@ -6,7 +6,6 @@ const main = (answer, pokemons, userScript) => {
         throw new Error('入力されたスクリプトが不正です。');
     if (script.length > 2)
         throw new Error('期待される引数が多すぎやしませんか？');
-    console.log(script);
     const log = [];
     let count = 0;
     let limit = 100;
