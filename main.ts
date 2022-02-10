@@ -1,20 +1,30 @@
+type Responce = [input: string, result: string]
+type Arguments = {
+    responce: Responce
+    log: Responce[]
+    count: number
+}
+
 const main = (answer: string, pokemons: readonly string[], userScript: string) => {
     const userScriptFactiory = new Function(`return ${userScript}`)
     const script = userScriptFactiory()
 
-    const log: [input: string, result: string][] = []
+    const log: Responce[] = []
     let count = 0
     let limit = 100
     const context = {  }
+    let responce: Responce = ['', 'xxxxx']
     while(count < 10 && limit) {
         limit--
 
-        const input = script({log: [...log], count}, {context, pokemonNames: pokemons.slice()})
-        const res = checkInput(input, answer, pokemons)
-        if(res === null) continue;
+        const arg: Arguments = { log: log.slice(), responce, count }
+        const input = script(arg, {context, pokemonNames: pokemons.slice()})
+        const result = checkInput(input, answer, pokemons)
+        responce = [input, result || 'error']
+        if(responce === null) continue;
 
-        log.push([input, res])
-        if(res === '@@@@@') break;
+        log.push(responce)
+        if(result === '@@@@@') break;
         
         count++
     }

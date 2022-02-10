@@ -6,14 +6,17 @@ const main = (answer, pokemons, userScript) => {
     let count = 0;
     let limit = 100;
     const context = {};
+    let responce = null;
     while (count < 10 && limit) {
         limit--;
-        const input = script({ log: [...log], count }, { context, pokemonNames: pokemons.slice() });
-        const res = checkInput(input, answer, pokemons);
-        if (res === null)
+        const arg = { log: log.slice(), responce, count };
+        const input = script(arg, { context, pokemonNames: pokemons.slice() });
+        const result = checkInput(input, answer, pokemons);
+        responce = (result != null) ? [input, result] : null;
+        if (responce === null)
             continue;
-        log.push([input, res]);
-        if (res === '@@@@@')
+        log.push(responce);
+        if (result === '@@@@@')
             break;
         count++;
     }

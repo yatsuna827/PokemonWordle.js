@@ -20,16 +20,24 @@
     </head>
     <body>
         <textarea id='editor' stype='height: 300px'>
-({log, count}, {context, pokemonNames}) => {
-    // logには[input,result]のタプルの配列が渡されます。
-    // result は 'x','o','@'のいずれかからなる長さ5の文字列で、それぞれ
-    // x ... 正解に含まれない
-    // o ... 正解に含まれるが位置が一致しない
+({ responce, log, count }, { context, pokemonNames }) => {
+    // responceには[input, result]のタプルが渡されます。
+    // result は "error"もしくは"'x','o','@'のいずれかからなる長さ5の文字列"です。
+    // 前者は入力が無効だったことを表します。
+    // 後者の場合、構成する文字はそれぞれ
     // @ ... 正解に含まれ、位置も一致している
+    // o ... 正解に含まれるが位置が一致しない
+    // x ... 正解に含まれないか、正解に含まれる当該文字が全て他の位置で@として処理されている
     // の意味を持ちます。
+    // 入力が5文字未満の場合、不足分の末尾には常にxが返されます。
+    // たとえば正解がオーダイル、入力がヌオーの場合は"xooxx"、
+    // 正解がアギルダー、入力がギギギアルの場合は"x@xox"が返されます。
+    // 
+    // logにはresponceの配列が渡されます。
+    // これまでの入出力の履歴が古い順に入っています。
     // 
     // count は 現在の入力の回数が渡されます。
-    // 無効な入力はcountが増えません。
+    // 無効な入力はcountが増えませんが、無効な入力も含めた呼び出し回数が100に到達すると強制終了します。
     
     // contextは1回『実行』ボタンを押してスクリプトが実行される間、保持されます。
     // 前処理を行って格納しておく用途などに使えます。
@@ -37,16 +45,18 @@
     // pokemonNames には、本ゲームに登録されているポケモン名の一覧が渡されます。ご自由にお使いください。
     // (呼び出しごとに新しい配列が渡されるので、破壊的変更を行っても構いませんが、
     //  次の呼び出しに引き継ぎたい場合はcontextに格納する必要があります)
+
+    // 以下サンプルコード
+
     if(!context.pool) {
         context.pool = pokemonNames.filter((name) => name.length === 5)
-        context.total = pokemonNames.length
+        context.total = context.pool.length
     }
 
+    // 初手はジーランスが強いと聞いたので。
     if(count == 0) return 'ジーランス'
-    if(count == 1) return 'ダルマッカ'
-    if(count == 2) return 'ギギギアル'
-    if(count == 3) return 'アギルダー'
     
+    // 2回目以降は完全にランダムに答える。
     const rand = Math.floor(Math.random() * context.total)
     
     return context.pool[rand]
@@ -83,7 +93,7 @@
                     for(let i=0; i<100; i++) {
                         const rand = Math.floor(Math.random() * five.length)
                         const log = main(five[rand], pokemonNames, document.getElementById("editor").value)
-                        if(log == null) score -= 100
+                        if(log == null) {score -= 100; console.log("limit over... answer:" + five[rand])}
                         else score += log[log.length-1][1] === '@@@@@' ? 11 - log.length : 0
                     }
                     if(score > max) max = score
