@@ -58,17 +58,17 @@
       <textarea id='editor'></textarea>
       <div class="tabmenu">
         <label>
-          <input type="radio" checked>
+          <input type="radio" name="mode" value="normal" checked>
           <em>ノーマルモード</em>
           <button id='play-button'>実行</button>
         </label>
         <label>
-          <input type="radio">
+          <input type="radio" name="mode" value="score-attack">
           <em>スコアアタックモード</em>
           <button id='play-button2'>実行</button>
         </label>
       </div>
-      <div class="result-container normal-mode">
+      <div id="normal-mode-container" class="result-container normal-mode">
         <div class="result-stack">
           <div id="result0" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
           <div id="result1" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
@@ -84,7 +84,7 @@
           <div id="result9" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
         </div>
       </div>
-      <div id="score-attack-container" class="result-container">
+      <div id="score-attack-container" class="result-container inactive">
         
       </div>
     </div>

@@ -124,5 +124,21 @@ const renderResultRow = (res: Responce, i: number) => {
   }
 }
 
+function changeTab(this: HTMLInputElement) {
+  if (this.value === 'normal') {
+    document.getElementById('normal-mode-container').classList.remove('inactive')
+    document.getElementById('score-attack-container').classList.add('inactive')
+  } else if (this.value === 'score-attack') {
+    document.getElementById('normal-mode-container').classList.add('inactive')
+    document.getElementById('score-attack-container').classList.remove('inactive')
+  }
+}
+
 document.getElementById('play-button').onclick = onPlayButtonClicked
 document.getElementById('play-button2').onclick = onPlayButton2Clicked
+document.querySelectorAll<HTMLInputElement>("input[type='radio'][name='mode']").forEach((e) => e.addEventListener('change', changeTab))
+
+{
+  const normalModeInput = document.querySelector<HTMLInputElement>("input[type='radio'][name='mode'][value='normal']")
+  if (normalModeInput) normalModeInput.checked = true
+}
