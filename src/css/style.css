@@ -1,0 +1,76 @@
+body {
+  background-color: #ccc;
+}
+.CodeMirror {
+  font-family: Monaco, 'Andale Mono', 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
+  font-size: 9pt;
+  height: 70vh;
+  min-height: 100px;
+  resize: vertical;
+}
+code {
+  display: inline-block;
+  padding: 0.1em 0.25em;
+  color: #444;
+  background-color: #e7edf3;
+  border-radius: 3px;
+  border: solid 1px #d6dde4;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+}
+
+.page-container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+@media (min-width: 768px) {
+  .page-container {
+    width: 750px;
+  }
+}
+
+.name-container {
+  display: flex;
+  gap: 4px;
+}
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+  height: 40px;
+  width: 40px;
+  border-width: 2px;
+  border-radius: 4px;
+
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+}
+.green {
+  background-color: rgb(76, 175, 80);
+}
+.yallow {
+  background-color: rgb(201, 180, 88);
+}
+.gray {
+  background-color: rgb(117, 117, 117);
+}
+
+.result-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.result-container {
+  width: 500px;
+  margin: 0px auto;
+}
+.normal-mode {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+
+}

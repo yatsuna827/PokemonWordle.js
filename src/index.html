@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PokemonWordle.js</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.1/codemirror.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.1/codemirror.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/defaultValues.js"></script>
+  </head>
+  <body>
+    <div class="page-container">
+      <details>
+        <summary>
+          ルール説明
+        </summary>
+        <p>
+          <code>responce</code> には <code>[input, result]</code> のタプルが渡されます。
+        </p>
+        <p>
+          <code>result</code> は <code>"error"</code>もしくは『<code>"x"</code>, <code>"o"</code>, <code>"@"</code>のいずれかからなる長さ5の文字列』です。
+          <ul>
+            <li>前者は入力が無効だったことを表します。</li>
+            <li>後者の場合、構成する文字はそれぞれ
+              <ul>
+                <li>@ ... 正解に含まれ、位置も一致している</li>
+                <li>o ... 正解に含まれるが位置が一致しない</li>
+                <li>x ... 正解に含まれないか、正解に含まれる当該文字が全て他の位置で@として処理されている</li>
+              </ul>
+              の意味を持ちます。
+            </li>
+          </ul>
+          入力が5文字未満の場合、不足分の末尾には常にxが返されます。
+          たとえば正解がオーダイル、入力がヌオーの場合は"xooxx"、
+          正解がアギルダー、入力がギギギアルの場合は"x@xox"が返されます。
+        </p>
+        <p>
+          <code>log</code> には <code>responce</code> の配列が渡されます。
+          これまでの入出力の履歴が古い順に入っています。
+        </p>
+        
+        <p>
+          <code>count</code> は 現在の入力の回数が渡されます。
+          無効な入力は <code>count</code> が増えませんが、無効な入力も含めた呼び出し回数が100に到達すると強制終了します。
+        </p>
+        
+        <p>
+          <code>context</code> は1回『実行』ボタンを押してスクリプトが実行される間、保持されます。
+          前処理を行って格納しておく用途などに使えます。
+        </p>
+        
+        <p>
+          <code>pokemonNames</code> には、本ゲームに登録されているポケモン名の一覧が渡されます。ご自由にお使いください。
+          呼び出しごとに新しい配列が渡されるので、破壊的変更を行っても構いませんが、
+          次の呼び出しに引き継ぎたい場合は <code>context</code> に格納する必要があります
+        </p>
+      </details>
+      <textarea id='editor'></textarea>
+      <div class="tabmenu">
+        <label>
+          <input type="radio" checked>
+          <em>ノーマルモード</em>
+          <button id='play-button'>実行</button>
+        </label>
+        <label>
+          <input type="radio">
+          <em>スコアアタックモード</em>
+          <button id='play-button2'>実行</button>
+        </label>
+      </div>
+      <div class="result-container normal-mode">
+        <div class="result-stack">
+          <div id="result0" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
+          <div id="result1" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
+          <div id="result2" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
+          <div id="result3" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
+          <div id="result4" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
+        </div>
+        <div class="result-stack">
+          <div id="result5" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
+          <div id="result6" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
+          <div id="result7" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
+          <div id="result8" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
+          <div id="result9" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
+        </div>
+      </div>
+      <div id="score-attack-container" class="result-container">
+        
+      </div>
+    </div>
+    <script src="./js/index.js"></script>
+  </body>
+</html>
