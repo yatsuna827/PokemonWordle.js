@@ -99,13 +99,26 @@ code {
   flex-direction: column;
   align-items: center;
 }
-.result-container.inactive {
-  display: none;
-}
 .result-stack-container {
   display: flex;
   gap: 10px;
   justify-content: center;
+}
+.answer-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 300px;
+  height: 64px;
+  border-radius: 4px;
+  margin-top: 40px;
+
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+
+  background-color: black;
 }
 
 .h-stack {
@@ -116,4 +129,8 @@ code {
 .play-button {
   height: 30px;
   width: 80px;
+}
+
+.inactive {
+  display: none;
 }

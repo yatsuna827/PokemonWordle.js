@@ -72,14 +72,16 @@ const onPlayButtonClicked = () => {
 
   const pool = five
 
-  const rand = Math.floor(Math.random() * pool.length)
+  const answer = pool[Math.floor(Math.random() * pool.length)]
 
-  const results = main(pool[rand], pokemonNames, document.getElementById('editor').value)
+  const results = main(answer, pokemonNames, document.getElementById('editor').value)
 
   if (results) {
     for (let i = 0; i < 10; i++) {
       renderResultRow(results[i], i)
     }
+    const answerBox = document.getElementById('answer-box')
+    answerBox.textContent = answer
   } else {
     alert('実行中にエラーが発生しました。スクリプトに誤りがあるか、実行に時間がかかりすぎている可能性があります。')
   }
