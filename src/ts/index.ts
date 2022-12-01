@@ -74,10 +74,12 @@ const onPlayButtonClicked = () => {
 
   const rand = Math.floor(Math.random() * pool.length)
 
-  const log = main(pool[rand], pokemonNames, document.getElementById('editor').value)
+  const results = main(pool[rand], pokemonNames, document.getElementById('editor').value)
 
-  if (log) {
-    log.forEach(renderResultRow)
+  if (results) {
+    for (let i = 0; i < 10; i++) {
+      renderResultRow(results[i], i)
+    }
   } else {
     alert('実行中にエラーが発生しました。スクリプトに誤りがあるか、実行に時間がかかりすぎている可能性があります。')
   }
@@ -90,7 +92,7 @@ const onPlayButton2Clicked = () => {
   let max = -Infinity
   let min = Infinity
   let sum = 0
-  const logger = document.getElementById('score-attack-container')
+  const container = document.getElementById('score-attack-result-container')
   for (let k = 0; k < 10; k++) {
     let score = 0
     for (let i = 0; i < 100; i++) {
@@ -109,28 +111,37 @@ const onPlayButton2Clicked = () => {
   results.push(`<p>min: ${min}</p>`)
   results.push(`<p>max: ${max}</p>`)
   results.push(`<p>avg: ${sum / 10}</p>`)
-  logger.innerHTML = results.join('')
+  container.innerHTML = results.join('')
 }
 
-const renderResultRow = (res: Responce, i: number) => {
-  const [input, result] = res
-
+const renderResultRow = (res: Responce | undefined, i: number) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const nameDivs = document.getElementById(`result${i}`)!.childNodes
-  for (let i = 0; i < 5; i++) {
-    const div = nameDivs[i] as HTMLDivElement
-    div.className = 'box ' + { x: 'gray', o: 'yallow', '@': 'green' }[result[i]]
-    div.textContent = input[i]
+
+  if (res) {
+    const [input, result] = res
+
+    for (let i = 0; i < 5; i++) {
+      const div = nameDivs[i] as HTMLDivElement
+      div.className = 'box ' + { x: 'gray', o: 'yallow', '@': 'green' }[result[i]]
+      div.textContent = input[i]
+    }
+  } else {
+    for (let i = 0; i < 5; i++) {
+      const div = nameDivs[i] as HTMLDivElement
+      div.className = 'box blank'
+      div.textContent = ''
+    }
   }
 }
 
 function changeTab(this: HTMLInputElement) {
   if (this.value === 'normal') {
-    document.getElementById('normal-mode-container').classList.remove('inactive')
-    document.getElementById('score-attack-container').classList.add('inactive')
+    document.getElementById('normal-mode-tab').classList.remove('inactive')
+    document.getElementById('score-attack-mode-tab').classList.add('inactive')
   } else if (this.value === 'score-attack') {
-    document.getElementById('normal-mode-container').classList.add('inactive')
-    document.getElementById('score-attack-container').classList.remove('inactive')
+    document.getElementById('normal-mode-tab').classList.add('inactive')
+    document.getElementById('score-attack-mode-tab').classList.remove('inactive')
   }
 }
 

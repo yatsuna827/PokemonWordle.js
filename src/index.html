@@ -9,11 +9,16 @@
     <script src="./js/defaultValues.js"></script>
   </head>
   <body>
+    <header>
+      PokemonWordle.js
+    </header>
     <div class="page-container">
+      <h1>Play PokemonWordle with JavaScript</h1>
       <details>
         <summary>
           ルール説明
         </summary>
+        <p>ゲーム自体のルールは基本的に<a href="https://wordle.mega-yadoran.jp/" target=”_blank”>本家</a>に準拠しています。</p>
         <p>
           <code>responce</code> には <code>[input, result]</code> のタプルが渡されます。
         </p>
@@ -60,34 +65,39 @@
         <label>
           <input type="radio" name="mode" value="normal" checked>
           <em>ノーマルモード</em>
-          <button id='play-button'>実行</button>
         </label>
         <label>
           <input type="radio" name="mode" value="score-attack">
           <em>スコアアタックモード</em>
-          <button id='play-button2'>実行</button>
         </label>
       </div>
-      <div id="normal-mode-container" class="result-container normal-mode">
-        <div class="result-stack">
-          <div id="result0" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
-          <div id="result1" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
-          <div id="result2" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
-          <div id="result3" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
-          <div id="result4" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
-        </div>
-        <div class="result-stack">
-          <div id="result5" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
-          <div id="result6" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
-          <div id="result7" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
-          <div id="result8" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
-          <div id="result9" class="name-container"><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div><div class="box gray"></div></div>
+      <div id="normal-mode-tab" class="result-container h-stack">
+        <button id='play-button' class="play-button">実行</button>
+        <div class="result-stack-container">
+          <div class="h-stack">
+            <div id="result0" class="name-container"><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div></div>
+            <div id="result1" class="name-container"><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div></div>
+            <div id="result2" class="name-container"><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div></div>
+            <div id="result3" class="name-container"><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div></div>
+            <div id="result4" class="name-container"><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div></div>
+          </div>
+          <div class="h-stack">
+            <div id="result5" class="name-container"><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div></div>
+            <div id="result6" class="name-container"><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div></div>
+            <div id="result7" class="name-container"><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div></div>
+            <div id="result8" class="name-container"><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div></div>
+            <div id="result9" class="name-container"><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div><div class="box blank"></div></div>
+          </div>
         </div>
       </div>
-      <div id="score-attack-container" class="result-container inactive">
-        
+      <div id="score-attack-mode-tab" class="result-container h-stack inactive">
+        <button id='play-button2' class="play-button">実行</button>
+        <div id="score-attack-result-container" style="min-height: 200px;"></div>
       </div>
     </div>
+    <footer>
+      &copy; 2022 <a href="https://twitter.com/sub_827" target="_blank">夜綱</a>.
+    </footer>
     <script src="./js/index.js"></script>
   </body>
 </html>
